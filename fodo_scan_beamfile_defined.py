@@ -421,7 +421,7 @@ if __name__ == "__main__":
         E.g. --energy 5.0''')
 
     parser.add_argument('--spread_type', dest='type', default='percentage',
-                        choices=['percentage', 'value'],
+                        choices=['percentage', 'value', 'stepwise'],
                         help='''
         This defines the type of energy spread that you are defining. The options
         are percentage or value. 
@@ -432,7 +432,11 @@ if __name__ == "__main__":
         value corresponds to:
         meanE +/- spread
 
-        value is defined in units of GeV.''')
+        value is defined in units of GeV.
+        
+        stepwise corresponds to producing an equally spaced energy array, ranging 
+        from 0 to the value given by the argument --energy. If using this, the 
+        value given to the argument '--spread' becomes irrelevant.''')
 
     parser.add_argument('--spread', dest='spread', default=None,
                         help='''
