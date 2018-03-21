@@ -566,7 +566,7 @@ if __name__ == "__main__":
         spread_fraction = spread / meanE
 
         beam_dir = 'e_beam_mean_' + str(meanE) + '_spread_percentage_' + \
-                   str(spread_fraction[:3])
+                   str(spread_fraction)
 
     # Loop over different quad strengths.
 
