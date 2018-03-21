@@ -13,7 +13,7 @@ beam,  particle="e-",
 option_ngenerate_edit
 option_nperfile_edit"""
 
-def generate_beam_env(filename, meanE, spread_percent=None, spread_number=None):
+def generate_beam_env(filename, meanE, dist, spread_percent=None, spread_number=None):
 
     """This command generates a text file describing a gaussian beam with mean = meanE and
         sigma = spread_percent * meanE or sigma = spread_number depending on the user's input. The beam
@@ -41,7 +41,7 @@ def generate_beam_env(filename, meanE, spread_percent=None, spread_number=None):
         print "WARNING: Energy spread over-defined. Defaulting to using given percentage spread."
         energy_spread = spread_percent
 
-    particle_number = produce_beam.produce_beam(open_file, meanE, energy_spread)
+    particle_number = produce_beam.produce_beam(open_file, meanE, energy_spread, dist)
 
     return particle_number
 
@@ -95,10 +95,10 @@ if __name__ == '__main__':
     E.g. --energy 5.0''')
 
     parser.add_argument('--spread_type', dest = 'type', default='percentage',
-                        choices=['percentage', 'value'],
+                        choices=['percentage', 'value', 'stepwise'],
                         help = '''
     This defines the type of energy spread that you are defining. The options
-    are percentage or value. 
+    are percentage, value or stepwise. 
     
     percentage corresponds to:
     meanE +/- spread * meanE
@@ -106,7 +106,11 @@ if __name__ == '__main__':
     value corresponds to:
     meanE +/- spread
     
-    value is defined in units of GeV.''')
+    value is defined in units of GeV.
+    
+    stepwise corresponds to producing an equally spaced energy array, ranging 
+    from 0 to the value given by the argument --energy. If using this, the 
+    value given to the argument '--spread' becomes irrelevant.''')
 
     parser.add_argument('--spread', dest = 'spread', default=None,
                         help = '''
@@ -125,11 +129,11 @@ if __name__ == '__main__':
 
     if arguments.type == 'percentage':
 
-        particle_number = generate_beam_env(filename, meanE, spread_percent=spread)
+        particle_number = generate_beam_env(filename, meanE, dist, spread_percent=spread)
 
     elif arguments.type == 'value':
 
-        particle_number = generate_beam_env(filename, meanE, spread_number=spread)
+        particle_number = generate_beam_env(filename, meanE, dist, spread_number=spread)
 
     cwd = os.getcwd()
 

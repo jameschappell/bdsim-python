@@ -22,15 +22,23 @@ def read_file(filename):
     return array
 
 
-def generate_beam_energies(meanE, energy_spread, array):
+def generate_beam_energies(meanE, energy_spread, array, dist):
 
     """This function generates a sample of energies defined by the chosen mean energy and energy spread
         for a chosen number of particles defined by the length of the array that is given to the function.
-        The default distribution is gaussian."""
+        The default distribution is stepwise. This produces an equally-spaced array with energies ranging
+        from 0 to the meanE. Other option is gaussian. """
 
     particle_number = len(array)
 
-    energy_values = np.random.normal(meanE, energy_spread*meanE, particle_number)
+    if dist == "gaussian":
+
+        energy_values = np.random.normal(meanE, energy_spread*meanE,
+                                         particle_number)
+
+    else:
+
+        energy_values = np.linspace(0., meanE, particle_number)
 
     return energy_values
 
@@ -48,7 +56,7 @@ def replace_energies(array, energy_values):
     return array
 
 
-def produce_beam(filename, meanE, energy_spread):
+def produce_beam(filename, meanE, energy_spread, dist):
 
     """This function generates a text file of particle energies of a given mean energy and spread with
         position and momentum distributions according to the original file that it reads. It replaces the
@@ -59,7 +67,7 @@ def produce_beam(filename, meanE, energy_spread):
 
     energy_GeV_to_MeV = meanE*1000
 
-    energy_values = generate_beam_energies(energy_GeV_to_MeV, energy_spread, array)
+    energy_values = generate_beam_energies(energy_GeV_to_MeV, energy_spread, array, dist)
 
     output = replace_energies(array, energy_values)
 
