@@ -22,7 +22,11 @@ def generate_beam_env(filename, meanE, dist, spread_percent=None, spread_number=
 
     open_file = filename
 
-    if spread_percent is None and spread_number is not None:
+    if spread_number == 'stepwise':
+
+        energy_spread = 0.1
+
+    elif spread_percent is None and spread_number is not None:
 
         spread_fraction = spread_number/meanE
         energy_spread = spread_fraction
@@ -127,13 +131,17 @@ if __name__ == '__main__':
 
     spread = float(arguments.spread)
 
-    if arguments.type == 'percentage':
+    if arguments.type == 'stepwise':
 
-        particle_number = generate_beam_env(filename, meanE, dist, spread_percent=spread)
+        particle_number = generate_beam_env(filename, meanE, dist='stepwise', spread_number='stepwise')
+
+    elif arguments.type == 'percentage':
+
+        particle_number = generate_beam_env(filename, meanE, dist='gaussian', spread_percent=spread)
 
     elif arguments.type == 'value':
 
-        particle_number = generate_beam_env(filename, meanE, dist, spread_number=spread)
+        particle_number = generate_beam_env(filename, meanE, dist='gaussian', spread_number=spread)
 
     cwd = os.getcwd()
 

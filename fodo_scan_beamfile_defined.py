@@ -561,12 +561,16 @@ if __name__ == "__main__":
         beam_dir = 'e_beam_mean_' + str(meanE) + '_spread_percentage_' +  \
                    str(spread)
 
-    else:
+    elif arguments.type == 'value':
 
         spread_fraction = spread / meanE
 
         beam_dir = 'e_beam_mean_' + str(meanE) + '_spread_percentage_' + \
                    str(spread_fraction)
+
+    else:
+
+        beam_dir = 'e_beam_max_' + str(meanE) + '_stepwise'
 
     # Loop over different quad strengths.
 
