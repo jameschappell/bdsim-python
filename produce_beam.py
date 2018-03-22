@@ -71,7 +71,15 @@ def produce_beam(filename, meanE, energy_spread, dist):
 
     output = replace_energies(array, energy_values)
 
-    output_file_name = 'e_beam_mean_' + str(meanE) + '_spread_percentage_' + str(energy_spread) + '.txt'
+    if dist == 'gaussian':
+
+        output_file_name = 'e_beam_mean_' + str(meanE) + '_spread_percentage_'\
+                           + str(energy_spread) + '.txt'
+
+    else:
+
+        output_file_name = 'e_beam_mean_' + str(meanE) + \
+                           '_spread_percentage_stepwise.txt'
 
     np.savetxt(output_file_name, output, fmt='%.3f')
 
