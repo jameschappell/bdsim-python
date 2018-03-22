@@ -134,6 +134,7 @@ if __name__ == '__main__':
     if arguments.type == 'stepwise':
 
         particle_number = generate_beam_env(filename, meanE, dist='stepwise', spread_number='stepwise')
+        spread = 'stepwise'
 
     elif arguments.type == 'percentage':
 
