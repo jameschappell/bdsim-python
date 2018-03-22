@@ -147,7 +147,16 @@ if __name__ == '__main__':
     cwd = os.getcwd()
 
     print "Generating gaussian beam with mean = " + str(meanE) + "GeV and spread = " + str(spread) + "GeV."
-    res_dir = 'e_beam_mean_' + str(meanE) + '_spread_percentage_' + str(spread)
+
+    if arguments.type == 'stepwise':
+
+        res_dir = 'e_beam_max_' + str(meanE) + '_stepwise'
+
+    else:
+
+        res_dir = 'e_beam_mean_' + str(meanE) + '_spread_percentage_' + str(
+            spread)
+
     txt_file_name = res_dir + '.txt'
     print "Making directory: ", res_dir
     if os.path.isdir(res_dir) is False:
