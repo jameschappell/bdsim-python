@@ -78,8 +78,8 @@ def produce_beam(filename, meanE, energy_spread, dist):
 
     else:
 
-        output_file_name = 'e_beam_mean_' + str(meanE) + \
-                           '_spread_percentage_stepwise.txt'
+        output_file_name = 'e_beam_max_' + str(meanE) + \
+                           '_stepwise.txt'
 
     np.savetxt(output_file_name, output, fmt='%.3f')
 
