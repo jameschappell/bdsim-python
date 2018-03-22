@@ -545,7 +545,7 @@ if __name__ == "__main__":
         else:
 
             gen_field_command = "python ${" \
-                                "PYTHON_SCRIPTS_DIR}/uniformfield.py" +  " " \
+                                "PYTHON_GIT_DIR}/uniformfield.py" +  " " \
                                 "--strength " + str(arguments.field_strength)\
                                 + " --length 4.0"
 
