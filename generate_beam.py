@@ -50,7 +50,7 @@ def generate_beam_env(filename, meanE, dist, spread_percent=None, spread_number=
     return particle_number
 
 
-def make_gmad(meanE, spread, resultsdir, particle_number):
+def make_gmad_gaussian(meanE, spread, resultsdir, particle_number):
 
     file_name = 'e_beam_mean_' + str(meanE) + '_spread_percentage_' + str(spread) + '.gmad'
     sg = os.path.join(resultsdir, file_name)
@@ -58,6 +58,22 @@ def make_gmad(meanE, spread, resultsdir, particle_number):
 
     distfile_string = 'distrFile="../e_beam_mean_' + str(meanE) + '_spread_percentage_' + str(spread) +\
                       '/e_beam_mean_' + str(meanE) + '_spread_percentage_' + str(spread) + '.txt'
+    e_beamgmad1 = string.replace(e_beamgmad, 'distrFile_edit', distfile_string)
+    ngenerate_string = 'option,ngenerate=' + str(particle_number) + ';'
+    e_beamgmad2 = string.replace(e_beamgmad1, 'option_ngenerate_edit', ngenerate_string)
+    nperfile_string = '!option,nperfile=' + str(particle_number) + ';'
+    e_beamgmad3 = string.replace(e_beamgmad2, 'option_nperfile_edit', nperfile_string)
+    fh.write(e_beamgmad3)
+    fh.close()
+
+def make_gmad_stepwise(meanE, spread, resultsdir, particle_number):
+
+    file_name = 'e_beam_max_' + str(meanE) + '_stepwise' + '.gmad'
+    sg = os.path.join(resultsdir, file_name)
+    fh = open(sg, "wb")
+
+    distfile_string = 'distrFile="../e_beam_max_' + str(meanE) + '_stepwise' +\
+                      '/e_beam_max_' + str(meanE) + '_stepwise' + '.txt'
     e_beamgmad1 = string.replace(e_beamgmad, 'distrFile_edit', distfile_string)
     ngenerate_string = 'option,ngenerate=' + str(particle_number) + ';'
     e_beamgmad2 = string.replace(e_beamgmad1, 'option_ngenerate_edit', ngenerate_string)
@@ -164,7 +180,15 @@ if __name__ == '__main__':
     else:
         print "Directory %s already exists. Stopping." % (res_dir)
         exit()
-    make_gmad(meanE, spread, res_dir, particle_number)
+
+    if arguments.type == 'stepwise':
+
+        make_gmad_stepwise(meanE, spread, res_dir, particle_number)
+
+    else:
+
+        make_gmad_gaussian(meanE, spread, res_dir, particle_number)
+
     shutil.copy(txt_file_name, res_dir)
     os.remove(txt_file_name)
 
