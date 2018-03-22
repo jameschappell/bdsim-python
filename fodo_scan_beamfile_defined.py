@@ -522,7 +522,7 @@ if __name__ == "__main__":
 
     # Generate a beam file for use in the simulation.
 
-    gen_beam_command = "python ${PYTHON_SCRIPTS_DIR}/generate_beam.py --file " + str(filename) + \
+    gen_beam_command = "python ${PYTHON_GIT_DIR}/generate_beam.py --file " + str(filename) + \
                        " --energy " + str(meanE) + \
                        " --spread_type " + str(arguments.type) + \
                        " --spread " + str(spread)
