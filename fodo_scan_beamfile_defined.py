@@ -644,5 +644,5 @@ if __name__ == "__main__":
             print run_command
             os.system(run_command)
             #outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
-                      + ".root"
+            #          + ".root"
             #shutil.copy(outfile, cwd)
