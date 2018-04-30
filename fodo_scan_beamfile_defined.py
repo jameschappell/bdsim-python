@@ -356,7 +356,7 @@ def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
 
     '''Edits the spectrometergmad template to add the quadrupole correction
     factor and relevant beam file.'''
-    quad_array = [x_strength, y_strength]
+    quad_array = [format(x_strength, '.2f'), format(y_strength, '.2f')]
     print "Quadrupole correction factor is %s" %(quad_array)
     sg = os.path.join(resultsdir, 'spectrometer.gmad')
     fh = open(sg, "wb")
@@ -625,7 +625,8 @@ if __name__ == "__main__":
             os.chdir(cwd)
             quad_array = [format(x_strength, '.2f'), format(y_strength, '.2f')]
             print "Quadrupole Correction Factor: %s" %(quad_array)
-            res_dir = 'x_' + str(x_strength) + '_y_' + str(y_strength)
+            res_dir = 'x_' + format(x_strength, '.2f') + '_y_' + \
+                      format(y_strength, '.2f')
             print "Making directory: ", res_dir
             if os.path.isdir(res_dir) is False:
                 os.mkdir(res_dir)
