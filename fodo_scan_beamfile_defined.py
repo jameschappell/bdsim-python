@@ -641,6 +641,7 @@ if __name__ == "__main__":
             make_environment(x_strength, y_strength, res_dir, beam_dir,
                              field_type, field_strength)
             os.chdir(res_dir)
+            os.mkdir('logs')
             run_command = "qsub sub_script.bash"
             print run_command
             #os.system(run_command)
