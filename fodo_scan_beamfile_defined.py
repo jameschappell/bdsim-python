@@ -644,7 +644,7 @@ if __name__ == "__main__":
             os.mkdir('logs')
             run_command = "qsub sub_script.bash"
             print run_command
-            #os.system(run_command)
+            os.system(run_command)
             #outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
             #          + ".root"
             #shutil.copy(outfile, cwd)
