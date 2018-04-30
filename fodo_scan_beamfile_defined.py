@@ -422,7 +422,7 @@ def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
     ss = os.path.join(resultsdir, 'sub_script.bash')
     fs = open(ss, "wb")
 
-    name_string = '#PBS -l BDSIMquadscan'
+    name_string = '#PBS -N BDSIMquadscan'
     subscript1 = string.replace(subscript, 'name', name_string)
 
     work_dir_string = '#PBS -wd ' + os.getcwd() +'/' + res_dir
