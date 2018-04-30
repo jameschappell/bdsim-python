@@ -328,6 +328,29 @@ sample, range = mldump2_out;
 !sample, range = mendwall;
 '''
 
+subscript = '''
+#!/bin/bash
+
+#PBS -l walltime=01:00:00
+#PBS -l mem=1G
+#PBS -l nodes=1
+#PBS -q short
+name
+#PBS -m be
+#PBS -M james.chappell.17@ucl.ac.uk
+work_dir
+#PBS -e ./logs/
+#PBS -o ./logs/
+
+scl enable devtoolset-3 bash <<EOF
+source /unix/pbt/software/scripts/dev/bds_pbt-dev.bashrc
+source /unix/pdpwa/jchappell/setup.sh
+change_dir
+
+sub_line
+EOF
+'''
+
 def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
                      fieldstrength):
 
@@ -394,9 +417,27 @@ def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
                                            fieldoffsetz_string)
 
     fh.write(spectrometergmad7)
-
     fh.close()
 
+    ss = os.path.join(resultsdir, 'sub_script.bash')
+    fs = open(ss, "wb")
+
+    name_string = '#PBS -l x_' + str(x_strength) + '_y_' + str(y_strength)
+    subscript1 = string.replace(subscript, 'name', name_string)
+
+    work_dir_string = '#PBS -wd ' + os.getcwd() +'/' + res_dir
+    subscript2 = string.replace(subscript1, 'work_dir', work_dir_string)
+
+    change_dir_string = 'cd ' + os.getcwd() + '/' + res_dir
+    subscript3 = string.replace(subscript2, 'change_dir', change_dir_string)
+
+    sub_line_str = "bdsim --file=spectrometer.gmad --outfile=x_" \
+                          + str(x_strength) + "_y_" + str(y_strength) + \
+                   " --batch"
+    subscript4 = string.replace(subscript3, 'sub_line', sub_line_str)
+
+    fs.write(subscript4)
+    fs.close()
 
 if __name__ == "__main__":
 
@@ -599,10 +640,9 @@ if __name__ == "__main__":
             make_environment(x_strength, y_strength, res_dir, beam_dir,
                              field_type, field_strength)
             os.chdir(res_dir)
-            run_command = "bdsim --file=spectrometer.gmad --outfile=x_" \
-                          + str(x_strength) + "_y_" + str(y_strength) + " --batch"
+            run_command = "qsub sub_script.bash"
             print run_command
-            os.system(run_command)
-            outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
-                      + ".root"
-            shutil.copy(outfile, cwd)
+            #os.system(run_command)
+            #outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
+            #          + ".root"
+            #shutil.copy(outfile, cwd)
