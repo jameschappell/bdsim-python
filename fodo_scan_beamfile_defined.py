@@ -422,7 +422,7 @@ def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
     ss = os.path.join(resultsdir, 'sub_script.bash')
     fs = open(ss, "wb")
 
-    name_string = '#PBS -l x_' + str(x_strength) + '_y_' + str(y_strength)
+    name_string = '#PBS -l BDSIMquadscan'
     subscript1 = string.replace(subscript, 'name', name_string)
 
     work_dir_string = '#PBS -wd ' + os.getcwd() +'/' + res_dir
@@ -623,7 +623,7 @@ if __name__ == "__main__":
             directory for each simulation."""
 
             os.chdir(cwd)
-            quad_array = [x_strength, y_strength]
+            quad_array = [format(x_strength, '.2f'), format(y_strength, '.2f')]
             print "Quadrupole Correction Factor: %s" %(quad_array)
             res_dir = 'x_' + str(x_strength) + '_y_' + str(y_strength)
             print "Making directory: ", res_dir
@@ -642,7 +642,7 @@ if __name__ == "__main__":
             os.chdir(res_dir)
             run_command = "qsub sub_script.bash"
             print run_command
-            os.system(run_command)
+            #os.system(run_command)
             #outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
             #          + ".root"
             #shutil.copy(outfile, cwd)
