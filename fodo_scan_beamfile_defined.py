@@ -584,7 +584,7 @@ if __name__ == "__main__":
             os.chdir(cwd)
             quad_array = [x_strength, y_strength]
             print "Quadrupole Correction Factor: %s" %(quad_array)
-            res_dir = 'qd0_correction_x_' + str(x_strength) + '_y_' + str(y_strength)
+            res_dir = 'x_' + str(x_strength) + '_y_' + str(y_strength)
             print "Making directory: ", res_dir
             if os.path.isdir(res_dir) is False:
                 os.mkdir(res_dir)
@@ -599,10 +599,10 @@ if __name__ == "__main__":
             make_environment(x_strength, y_strength, res_dir, beam_dir,
                              field_type, field_strength)
             os.chdir(res_dir)
-            run_command = "bdsim --file=spectrometer.gmad --outfile=qd0_correction_x_" \
-                          + str(x_strength) + "___y_" + str(y_strength) + " --batch"
+            run_command = "bdsim --file=spectrometer.gmad --outfile=x_" \
+                          + str(x_strength) + "_y_" + str(y_strength) + " --batch"
             print run_command
             os.system(run_command)
-            outfile = "qd0_correction_x_" + str(x_strength) + "___y_" + str(y_strength)\
+            outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
                       + ".root"
             shutil.copy(outfile, cwd)
