@@ -47,9 +47,15 @@ if __name__ == "__main__":
 
     file_list = find_files(string, 'root')
 
+    length = len(file_list)
+
+    i = 1
+
     # apply the analysis script to extract the relevant data
 
     for file_name in file_list:
+
+        print 'Analysing file %i of %i total files' % (i, length)
 
         output_file_name = os.path.splitext(file_name)[0]
 
@@ -61,6 +67,8 @@ if __name__ == "__main__":
                          output_file
 
         os.system(execute_string)
+
+        i = i + 1
 
     # Compress output
 
