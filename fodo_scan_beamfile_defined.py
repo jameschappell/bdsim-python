@@ -432,8 +432,8 @@ def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
     subscript3 = string.replace(subscript2, 'change_dir', change_dir_string)
 
     sub_line_str = "bdsim --file=spectrometer.gmad --outfile=x_" \
-                          + str(x_strength) + "_y_" + str(y_strength) + \
-                   " --batch"
+                   + format(x_strength, '.2f') + "_y_" + \
+                   format(y_strength, '.2f') + " --batch"
     subscript4 = string.replace(subscript3, 'sub_line', sub_line_str)
 
     fs.write(subscript4)
