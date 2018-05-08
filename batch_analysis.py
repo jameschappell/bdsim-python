@@ -43,7 +43,18 @@ if __name__ == "__main__":
 
     file_list = find_files(string)
 
-    print file_list
+    for file_name in file_list:
+
+        output_file_name = os.path.splitext(file_name)[0]
+
+        output_file = output_file_name + '.txt'
+
+        string = cwd + '/' + file_name
+
+        execute_string = '$QUAD_SCAN_ANALYSIS/data_extract ' + string + ' > ' +\
+                         output_file
+
+        print execute_string
 
 
 
