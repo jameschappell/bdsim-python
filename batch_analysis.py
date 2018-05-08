@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     file_loc = arguments.file
 
-    string = cwd + arguments.file
+    string = cwd + '/' + arguments.file
 
     file_list = find_files(string)
 
