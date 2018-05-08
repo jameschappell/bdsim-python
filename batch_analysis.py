@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
         output_file_name = os.path.splitext(file_name)[0]
 
-        output_file = output_file_name + '.txt'
+        output_file = cwd + '/' + output_file_name + '.txt'
 
         string = cwd + '/' + file_name
 
