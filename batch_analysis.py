@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     # Compress output
 
-    tar_name = 'quadscan_output_for_analysis'
+    tar_name = 'quadscan_output_for_analysis.tar.bz2'
 
     tar_command = 'tar jcvf ' + tar_name + ' *.txt'
 
