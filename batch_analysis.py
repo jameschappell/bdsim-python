@@ -4,13 +4,15 @@ import argparse
 
 
 
-def find_files(dir):
+def find_files(dir, ext):
 
     os.chdir(dir)
 
     file_list = []
 
-    for file_name in glob.glob("*.root"):
+    ext_string = '*.' + ext
+
+    for file_name in glob.glob(ext_string):
 
         file_list.append(file_name)
 
@@ -41,7 +43,11 @@ if __name__ == "__main__":
 
     string = cwd + '/' + arguments.file
 
-    file_list = find_files(string)
+    # find all .root files in the target directory
+
+    file_list = find_files(string, 'root')
+
+    # apply the analysis script to extract the relevant data
 
     for file_name in file_list:
 
@@ -54,7 +60,15 @@ if __name__ == "__main__":
         execute_string = '$QUAD_SCAN_ANALYSIS/data_extract ' + string + ' > ' +\
                          output_file
 
-        print execute_string
+        os.system(execute_string)
+
+    # Compress output
+
+    tar_name = 'quadscan_output_for_analysis'
+
+    tar_command = 'tar jcvf ' + tar_name + ' *.txt'
+
+    os.system(tar_command)
 
 
 
