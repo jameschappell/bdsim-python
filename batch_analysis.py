@@ -55,7 +55,9 @@ if __name__ == "__main__":
 
         print 'Entering directory %i of %i' % (k, length_dir)
 
-        os.chdir(dir_list[j])
+        chdir_name = string + '/' + dir_list[j]
+
+        os.chdir(chdir_name)
 
         cwd_2 = os.getcwd()
 
