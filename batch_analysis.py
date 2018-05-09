@@ -44,8 +44,8 @@ if __name__ == "__main__":
 
     string_1 = cwd + '/' + arguments.file
 
-    dir_list = [name for name in os.listdir(string) if os.path.isdir(
-        os.path.join(string, name))]
+    dir_list = [name for name in os.listdir(string_1) if os.path.isdir(
+        os.path.join(string_1, name))]
 
     length_dir = len(dir_list)
 
