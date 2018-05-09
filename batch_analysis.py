@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
     tar_name = 'quadscan_output_for_analysis.tar.bz2'
 
-    tar_command = 'tar jcvf ' + tar_name + ' *.txt'
+    tar_command = 'tar jcvf ' + tar_name + ' x*.txt'
 
     os.system(tar_command)
 
