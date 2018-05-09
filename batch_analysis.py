@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
             output_file = cwd + '/' + output_file_name + '.txt'
 
-            string = cwd + '/' + file_name
+            string = cwd_2 + '/' + file_name
 
             execute_string = '$QUAD_SCAN_ANALYSIS/data_extract ' + string + ' > ' +\
                              output_file
