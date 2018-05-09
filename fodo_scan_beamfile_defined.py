@@ -43,7 +43,7 @@ beam, particle="e-",
 !      sigmaT=4e-12;
 
 ! Quad Geometry
-quadStrength=4.678362;
+quadStrength=5.8;
 quad_physical_length=285*mm;
 quad_effective_length=310*mm;
 quad_length_diff=quad_effective_length-quad_physical_length;

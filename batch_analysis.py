@@ -3,7 +3,6 @@ import glob
 import argparse
 
 
-
 def find_files(dir, ext):
 
     os.chdir(dir)

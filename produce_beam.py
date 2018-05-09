@@ -33,8 +33,8 @@ def generate_beam_energies(meanE, energy_spread, array, dist):
 
     if dist == "gaussian":
 
-        energy_values = np.random.normal(meanE, energy_spread*meanE,
-                                         particle_number)
+        energy_values = abs(np.random.normal(meanE, energy_spread*meanE,
+                                         particle_number))
 
     else:
 
