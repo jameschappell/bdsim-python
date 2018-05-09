@@ -86,8 +86,6 @@ if __name__ == "__main__":
 
             os.system(execute_string)
 
-            shutil.copy(output_file, cwd)
-
             i = i + 1
 
         k = k + 1
