@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     # find all directories within current directory
 
-    string = cwd + '/' + arguments.file
+    string_1 = cwd + '/' + arguments.file
 
     dir_list = [name for name in os.listdir(string) if os.path.isdir(
         os.path.join(string, name))]
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
         print 'Entering directory %i of %i' % (k, length_dir)
 
-        chdir_name = string + '/' + dir_list[j]
+        chdir_name = string_1 + '/' + dir_list[j]
 
         os.chdir(chdir_name)
 
@@ -79,9 +79,10 @@ if __name__ == "__main__":
 
             output_file = cwd + '/' + output_file_name + '.txt'
 
-            string = cwd_2 + '/' + file_name
+            string_2 = cwd_2 + '/' + file_name
 
-            execute_string = '$QUAD_SCAN_ANALYSIS/data_extract ' + string + ' > ' +\
+            execute_string = '$QUAD_SCAN_ANALYSIS/data_extract ' + string_2 + \
+                             ' > ' +\
                              output_file
 
             os.system(execute_string)
