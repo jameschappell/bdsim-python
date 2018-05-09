@@ -40,34 +40,55 @@ if __name__ == "__main__":
 
     file_loc = arguments.file
 
+    # find all directories within current directory
+
     string = cwd + '/' + arguments.file
 
-    # find all .root files in the target directory
+    dir_list = [name for name in os.listdir(string) if os.path.isdir(
+        os.path.join(string, name))]
 
-    file_list = find_files(string, 'root')
+    length_dir = len(dir_list)
 
-    length = len(file_list)
+    k = 1
 
-    i = 1
+    for j in range(0, length_dir):
 
-    # apply the analysis script to extract the relevant data
+        print 'Entering directory %i of %i' % (k, length_dir)
 
-    for file_name in file_list:
+        os.chdir(dir_list[j])
 
-        print 'Analysing file %i of %i total files' % (i, length)
+        cwd_2 = os.getcwd()
 
-        output_file_name = os.path.splitext(file_name)[0]
+        # find all .root files in the target directory
 
-        output_file = cwd + '/' + output_file_name + '.txt'
+        file_list = find_files(cwd_2, 'root')
 
-        string = cwd + '/' + file_name
+        length = len(file_list)
 
-        execute_string = '$QUAD_SCAN_ANALYSIS/data_extract ' + string + ' > ' +\
-                         output_file
+        i = 1
 
-        os.system(execute_string)
+        # apply the analysis script to extract the relevant data
 
-        i = i + 1
+        for file_name in file_list:
+
+            print 'Analysing file %i of %i total files' % (i, length)
+
+            output_file_name = os.path.splitext(file_name)[0]
+
+            output_file = cwd + '/' + output_file_name + '.txt'
+
+            string = cwd + '/' + file_name
+
+            execute_string = '$QUAD_SCAN_ANALYSIS/data_extract ' + string + ' > ' +\
+                             output_file
+
+            os.system(execute_string)
+
+            shutil.copy(output_file, cwd)
+
+            i = i + 1
+
+        k = k + 1
 
     # Compress output
 
