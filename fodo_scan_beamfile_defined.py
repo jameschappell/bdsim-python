@@ -331,10 +331,10 @@ sample, range = mldump2_out;
 subscript = '''
 #!/bin/bash
 
-#PBS -l walltime=01:00:00
+#PBS -l walltime=02:00:00
 #PBS -l mem=1G
 #PBS -l nodes=1
-#PBS -q short
+#PBS -q medium
 name
 #PBS -m be
 #PBS -M james.chappell.17@ucl.ac.uk
