@@ -486,37 +486,61 @@ if __name__ == "__main__":
         the mean energy, whereas value corresponds to a particular energy spread
         value measured in GeV.''')
 
-    parser.add_argument('--y_quad_corr_min', dest='y_quad_min', default=0.95,
+    parser.add_argument('--scan_type', dest='scan_type', default='quick',
+                        choices=['quick', 'fine'], help='''
+        This option allows you to choose between a quick scan or a fine scan. 
+        
+        A quick scan means that the quadrupole coefficients will be the same for
+        both quadrupoles, varying from 0.0 to 1.0. 
+        e.g. (0.0, 0.0), (0.1, 0.1), (0.2, 0.2) etc.
+        
+        A fine scan means you can define the quadrupole coefficients separately 
+        through the later options.
+        e.g. for y varying between 0.1 and 0.2 in steps of 0.01
+             and x varying between 0.5 and 0.7 in steps of 0.02
+        You would give the following arguments:
+        
+        --y_quad_corr_min 0.1 --y_quad_corr_max 0.2 --y_quad_corr_step 0.01
+        --x_quad_corr_min 0.5 --x_quad_corr_max 0.7 --x_quad_corr_step 0.02
+        
+        The quadrupole coefficients would be:
+        (0.5, 0.1), (0.5, 0.11), (0.5, 0.12), ..., (0.5, 0.2)
+        (0.52, 0.1), (0.52, 0,11), (0.52, 0.12), ..., (0.52, 0.2)
+        and so on...
+        
+        ''')
+
+    parser.add_argument('--y_quad_corr_min', dest='y_quad_min', default=None,
                         help='''
         This is the minimum value of the quadrupole correction factor for the 
         focusing in the y-direction that you want to scan over. Default value 
         is 0.9''')
 
-    parser.add_argument('--y_quad_corr_max', dest='y_quad_max', default=1.05,
+    parser.add_argument('--y_quad_corr_max', dest='y_quad_max', default=None,
                         help='''
         This is the maximum value of the quadrupole correction factor for the
         focusing in the y-direction that you want to scan over. Default value 
         is 1.05''')
 
-    parser.add_argument('--y_quad_corr_step', dest='y_quad_step', default=0.01,
+    parser.add_argument('--y_quad_corr_step', dest='y_quad_step', default=None,
                         help='''
         This is the step value you want to use to increment the quadrupole 
         correction factor for the focusing in the y-direction between 
         [quad_corr_min, quad_corr_max]. Default value is 0.01.''')
 
-    parser.add_argument('--x_quad_corr_min', dest='x_quad_min', default=0.95,
+    parser.add_argument('--x_quad_corr_min', dest='x_quad_min', default=None,
                         help='''
         This is the minimum value of the quadrupole correction factor for the 
         focusing in the x-direction that you want to scan over. Default value 
         is 0.9''')
 
-    parser.add_argument('--x_quad_corr_max', dest='x_quad_max', default=1.05,
+    parser.add_argument('--x_quad_corr_max', dest='x_quad_max', default=None,
                         help='''
         This is the maximum value of the quadrupole correction factor for the 
         focusing in the y-direction that you want to scan over. Default value 
         is 1.05''')
 
-    parser.add_argument('--x_quad_corr_step', dest='x_quad_step', default=0.01,
+    parser.add_argument('--x_quad_corr_step', dest='x_quad_step', default=None,
                         help='''
         This is the step value you want to use to increment the quadrupole 
         correction factor for the focusing in the x-direction between 
@@ -548,12 +572,6 @@ if __name__ == "__main__":
     arguments = parser.parse_args()
 
     filename = arguments.file
-
-    y_qd0_strengths = np.arange(float(arguments.y_quad_min), float(arguments.y_quad_max) + 0.0001,
-                                float(arguments.y_quad_step))
-
-    x_qf0_strengths = np.arange(float(arguments.x_quad_min), float(arguments.x_quad_max) + 0.0001,
-                                float(arguments.x_quad_step))
 
     meanE = float(arguments.energy)
 
@@ -615,23 +633,29 @@ if __name__ == "__main__":
 
     # Loop over different quad strengths.
 
-    for y_strength in y_qd0_strengths:
+    if arguments.scan_type == 'quick':
 
-        for x_strength in x_qf0_strengths:
+        qd0_strengths = np.linspace(0, 1.0, 11)
 
-            """Looping over the range of quadrupole correction factors, creating a new 
-            directory for each simulation."""
+        for strength in qd0_strengths:
+
+            x_strength = strength
+
+            y_strength = strength
+
+            """Looping over the range of quadrupole correction factors, creating
+            a new directory for each simulation."""
 
             os.chdir(cwd)
             quad_array = [format(x_strength, '.2f'), format(y_strength, '.2f')]
-            print "Quadrupole Correction Factor: %s" %(quad_array)
+            print "Quadrupole Correction Factor: %s" % (quad_array)
             res_dir = 'x_' + format(x_strength, '.2f') + '_y_' + \
                       format(y_strength, '.2f')
             print "Making directory: ", res_dir
             if os.path.isdir(res_dir) is False:
                 os.mkdir(res_dir)
             else:
-                print "Directory %s already exists. Stopping." %(res_dir)
+                print "Directory %s already exists. Stopping." % (res_dir)
                 break
             print "Copy template files: "
             for filename in glob.glob(os.path.join(TEMPLATES_DIR, '*')):
@@ -645,6 +669,51 @@ if __name__ == "__main__":
             run_command = "qsub sub_script.bash"
             print run_command
             os.system(run_command)
-            #outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
+            # outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
             #          + ".root"
-            #shutil.copy(outfile, cwd)
+            # shutil.copy(outfile, cwd)
+
+
+    else:
+
+        y_qd0_strengths = np.arange(float(arguments.y_quad_min),
+                                    float(arguments.y_quad_max) + 0.0001,
+                                    float(arguments.y_quad_step))
+
+        x_qf0_strengths = np.arange(float(arguments.x_quad_min),
+                                    float(arguments.x_quad_max) + 0.0001,
+                                    float(arguments.x_quad_step))
+
+        for y_strength in y_qd0_strengths:
+
+            for x_strength in x_qf0_strengths:
+
+                """Looping over the range of quadrupole correction factors, creating a new 
+                directory for each simulation."""
+
+                os.chdir(cwd)
+                quad_array = [format(x_strength, '.2f'), format(y_strength, '.2f')]
+                print "Quadrupole Correction Factor: %s" %(quad_array)
+                res_dir = 'x_' + format(x_strength, '.2f') + '_y_' + \
+                          format(y_strength, '.2f')
+                print "Making directory: ", res_dir
+                if os.path.isdir(res_dir) is False:
+                    os.mkdir(res_dir)
+                else:
+                    print "Directory %s already exists. Stopping." %(res_dir)
+                    break
+                print "Copy template files: "
+                for filename in glob.glob(os.path.join(TEMPLATES_DIR, '*')):
+                    shutil.copy(filename, res_dir)
+                field_type = str(arguments.field_type)
+                field_strength = arguments.field_strength
+                make_environment(x_strength, y_strength, res_dir, beam_dir,
+                                 field_type, field_strength)
+                os.chdir(res_dir)
+                os.mkdir('logs')
+                run_command = "qsub sub_script.bash"
+                print run_command
+                os.system(run_command)
+                #outfile = "x_" + str(x_strength) + "_y_" + str(y_strength)\
+                #          + ".root"
+                #shutil.copy(outfile, cwd)
