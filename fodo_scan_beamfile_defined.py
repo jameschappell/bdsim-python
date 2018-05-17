@@ -33,7 +33,7 @@ precReg: cutsregion, prodCutProtons=10*um,
                  prodCutPositrons=10*um;
 
 
-beamEnergy=0.5*GeV;
+beamEnergydef;
 beam, particle="e-",
       energy=beamEnergy;
 !      distrType="gauss",
@@ -351,7 +351,8 @@ sub_line
 EOF
 '''
 
-def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
+def make_environment(meanE, x_strength, y_strength, resultsdir, beam_dir,
+                     fieldtype,
                      fieldstrength):
 
     '''Edits the spectrometergmad template to add the quadrupole correction
@@ -361,8 +362,13 @@ def make_environment(x_strength, y_strength, resultsdir, beam_dir, fieldtype,
     sg = os.path.join(resultsdir, 'spectrometer.gmad')
     fh = open(sg, "wb")
 
+    beamenergy_string = 'beamEnergy=' + meanE + '*GeV;'
+    spectrometergmade = string.replace(spectrometergmad, 'beamEnergydef',
+                                       beamenergy_string)
+
     k1_y_string = 'k1=-' + str(y_strength) + '*quadStrength;'
-    spectrometergmad1 = string.replace(spectrometergmad, 'k1_y_corrected_def', k1_y_string)
+    spectrometergmad1 = string.replace(spectrometergmade, 
+                                       'k1_y_corrected_def', k1_y_string)
 
     beamdir = beam_dir
     beam_input_string = 'include ../' + str(beamdir) + '/' + str(beamdir) + \
@@ -662,7 +668,7 @@ if __name__ == "__main__":
                 shutil.copy(filename, res_dir)
             field_type = str(arguments.field_type)
             field_strength = arguments.field_strength
-            make_environment(x_strength, y_strength, res_dir, beam_dir,
+            make_environment(meanE, x_strength, y_strength, res_dir, beam_dir,
                              field_type, field_strength)
             os.chdir(res_dir)
             os.mkdir('logs')
