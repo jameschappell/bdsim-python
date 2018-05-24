@@ -713,8 +713,8 @@ if __name__ == "__main__":
                     shutil.copy(filename, res_dir)
                 field_type = str(arguments.field_type)
                 field_strength = arguments.field_strength
-                make_environment(x_strength, y_strength, res_dir, beam_dir,
-                                 field_type, field_strength)
+                make_environment(meanE, x_strength, y_strength, res_dir,
+                                 beam_dir, field_type, field_strength)
                 os.chdir(res_dir)
                 os.mkdir('logs')
                 run_command = "qsub sub_script.bash"
