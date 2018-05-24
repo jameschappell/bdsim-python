@@ -362,12 +362,12 @@ def make_environment(meanE, x_strength, y_strength, resultsdir, beam_dir,
     sg = os.path.join(resultsdir, 'spectrometer.gmad')
     fh = open(sg, "wb")
 
-    beamenergy_string = 'beamEnergy=' + meanE + '*GeV;'
+    beamenergy_string = 'beamEnergy=' + str(meanE) + '*GeV;'
     spectrometergmade = string.replace(spectrometergmad, 'beamEnergydef',
                                        beamenergy_string)
 
     k1_y_string = 'k1=-' + str(y_strength) + '*quadStrength;'
-    spectrometergmad1 = string.replace(spectrometergmade, 
+    spectrometergmad1 = string.replace(spectrometergmade,
                                        'k1_y_corrected_def', k1_y_string)
 
     beamdir = beam_dir
