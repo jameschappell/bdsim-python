@@ -38,7 +38,14 @@ def generate_beam_energies(meanE, energy_spread, array, dist):
 
     else:
 
-        energy_values = np.linspace(0., meanE, particle_number)
+        energy_value_start = np.linspace(0., meanE, particle_number)
+
+        energy_values = []
+
+        for j in energy_value_start:
+
+            energy = abs(np.random.normal(j, 0.01, 1))
+            energy_values.append(energy)
 
     return energy_values
 
@@ -84,8 +91,5 @@ def produce_beam(filename, meanE, energy_spread, dist):
     np.savetxt(output_file_name, output, fmt='%.3f')
 
     return len(array)
-
-
-
 
 
