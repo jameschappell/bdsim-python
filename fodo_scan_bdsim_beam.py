@@ -380,22 +380,22 @@ def make_environment(meanE, spread, emitt, x_strength, y_strength, resultsdir,
                                         beamespread_string)
 
     beamxspread_string = 'sigmaX=' + str(emitt_factor * gamma_factor *
-                                         baselinex)
+                                         baselinex) + '*mm'
     spectrometergmade2 = string.replace(spectrometergmade1, 'sigmaXdef',
                                         beamxspread_string)
 
     beamyspread_string = 'sigmaY=' + str(emitt_factor * gamma_factor *
-                                         baselinex)
+                                         baselinex) + '*mm'
     spectrometergmade3 = string.replace(spectrometergmade2, 'sigmaYdef',
                                         beamyspread_string)
 
     beamxpspread_string = 'sigmaXp=' + str(emitt_factor * gamma_factor *
-                                         baselinexp)
+                                         baselinexp) + '*mrad'
     spectrometergmade4 = string.replace(spectrometergmade3, 'sigmaXpdef',
                                         beamxpspread_string)
 
     beamypspread_string = 'sigmaYp=' + str(emitt_factor * gamma_factor *
-                                         baselinexp)
+                                         baselinexp) + '*mrad'
     spectrometergmade5 = string.replace(spectrometergmade4, 'sigmaYpdef',
                                         beamypspread_string)
 
