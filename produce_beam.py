@@ -38,7 +38,9 @@ def generate_beam_energies(meanE, energy_spread, array, dist):
 
     else:
 
-        energy_value_start = np.linspace(0., meanE, particle_number)
+        energy_value_start = np.linspace(meanE - energy_spread*meanE, meanE +
+                                         energy_spread*meanE,
+                                         particle_number)
 
         energy_values = []
 

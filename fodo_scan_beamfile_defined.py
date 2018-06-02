@@ -482,8 +482,7 @@ if __name__ == "__main__":
         value is defined in units of GeV.
         
         stepwise corresponds to producing an equally spaced energy array, ranging 
-        from 0 to the value given by the argument --energy. If using this, the 
-        value given to the argument '--spread' becomes irrelevant.''')
+        from meanE - spread*meanE to meanE + spread*meanE.''')
 
     parser.add_argument('--spread', dest='spread', default=None,
                         help='''
