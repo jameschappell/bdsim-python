@@ -22,7 +22,7 @@ spectrometergmad='''! This file describes the basic spectrometer setup for the A
 ! at CERN. 
 
 option,physicsList="";
-!option,ngenerate=100000;
+option,ngenerate=100000;
 beam_include
 include options.gmad;
 
