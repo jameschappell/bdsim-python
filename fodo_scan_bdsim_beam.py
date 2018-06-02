@@ -484,14 +484,6 @@ if __name__ == "__main__":
     quadrupole correction factor for the second quadrupole.""",
                                      formatter_class=argparse.RawTextHelpFormatter)
 
-    parser.add_argument('--file', dest='file', default=None,
-                        help = '''
-    This is the path to the example beam .txt file that you are basing the new
-    beam description on. It provides the position and momenta values for each
-    particle.
-    
-    E.g. --file "<path to file>"''')
-
     parser.add_argument('--energy', dest='energy', default=None,
                         help='''
         This defines the mean energy of the gaussian beam that you would like to 
@@ -595,8 +587,6 @@ if __name__ == "__main__":
         The field strength is measured in Tesla.''')
 
     arguments = parser.parse_args()
-
-    filename = arguments.file
 
     meanE = float(arguments.energy)
 
