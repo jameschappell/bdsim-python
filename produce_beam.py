@@ -22,7 +22,32 @@ def read_file(filename):
     return array
 
 
-def generate_beam_energies(meanE, energy_spread, array, dist):
+def produce_strange_beam(peak, gauss_wid_low, gauss_wid_high, n):
+
+    """ This function generates a lopsided beam with gaussians of different
+    widths on either side of the peak energy."""
+
+    beam = []
+    # frac = gauss_wid_high/gauss_wid_low
+    frac = 0.5
+
+    num_part_low = int((1 - frac) * n)
+    lower_part = abs(np.random.normal(0, gauss_wid_low, num_part_low))
+
+    for i in range(0, len(lower_part)):
+        beam.append(abs(peak - lower_part[i]))
+
+    num_part_high = int(frac * n)
+    upper_part = abs(np.random.normal(0, gauss_wid_high, num_part_high))
+
+    for j in range(0, len(upper_part)):
+        beam.append(peak + upper_part[j])
+
+    return beam
+
+
+def generate_beam_energies(meanE, energy_spread, energy_spread_low, array,
+                           dist):
 
     """This function generates a sample of energies defined by the chosen mean energy and energy spread
         for a chosen number of particles defined by the length of the array that is given to the function.
@@ -35,6 +60,12 @@ def generate_beam_energies(meanE, energy_spread, array, dist):
 
         energy_values = abs(np.random.normal(meanE, energy_spread*meanE,
                                          particle_number))
+
+    elif dist == "lopsided":
+
+        energy_values = produce_strange_beam(meanE, energy_spread_low,
+                                             energy_spread, particle_number)
+
 
     else:
 
@@ -65,7 +96,7 @@ def replace_energies(array, energy_values):
     return array
 
 
-def produce_beam(filename, meanE, energy_spread, dist):
+def produce_beam(filename, meanE, energy_spread, energy_spread_low, dist):
 
     """This function generates a text file of particle energies of a given mean energy and spread with
         position and momentum distributions according to the original file that it reads. It replaces the
@@ -84,6 +115,12 @@ def produce_beam(filename, meanE, energy_spread, dist):
 
         output_file_name = 'e_beam_mean_' + str(meanE) + '_spread_percentage_'\
                            + str(energy_spread) + '.txt'
+
+    elif dist == "lopsided":
+
+        output_file_name = 'e_beam_mean_' + str(meanE) + \
+                           '_upperspread_' + str(energy_spread) + \
+                           '_lowerspread' + str(energy_spread_low) + '.txt'
 
     else:
 

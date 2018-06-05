@@ -468,7 +468,7 @@ if __name__ == "__main__":
         E.g. --energy 5.0''')
 
     parser.add_argument('--spread_type', dest='type', default='percentage',
-                        choices=['percentage', 'value', 'stepwise'],
+                        choices=['percentage', 'value', 'stepwise', 'lopsided'],
                         help='''
         This defines the type of energy spread that you are defining. The options
         are percentage or value. 
@@ -490,6 +490,11 @@ if __name__ == "__main__":
         in the --spread_type argument. percentage corresponds to a percentage of 
         the mean energy, whereas value corresponds to a particular energy spread
         value measured in GeV.''')
+
+    parser.add_argument('--spread_low', dest='spread_low', default=None,
+                        help='''
+            This defines the lower width of a gaussian beam when using a 
+            lopsided beam. Measured in GeV.''')
 
     parser.add_argument('--scan_type', dest='scan_type', default='quick',
                         choices=['quick', 'fine'], help='''
@@ -582,6 +587,8 @@ if __name__ == "__main__":
 
     spread = float(arguments.spread)
 
+    spread_low = float(arguments.spread_low)
+
     cwd = os.getcwd()
 
     # Generate a beam file for use in the simulation.
@@ -589,7 +596,9 @@ if __name__ == "__main__":
     gen_beam_command = "python ${PYTHON_GIT_DIR}/generate_beam.py --file " + str(filename) + \
                        " --energy " + str(meanE) + \
                        " --spread_type " + str(arguments.type) + \
-                       " --spread " + str(spread)
+                       " --spread " + str(spread) + " --spread_low" + \
+                       str(spread_low)
+
     print gen_beam_command
 
     os.system(gen_beam_command)

@@ -13,7 +13,8 @@ beam,  particle="e-",
 option_ngenerate_edit
 option_nperfile_edit"""
 
-def generate_beam_env(filename, meanE, dist, spread_percent=None, spread_number=None):
+def generate_beam_env(filename, meanE, dist, spread_percent=None,
+                      spread_number=None, spread_low=None):
 
     """This command generates a text file describing a gaussian beam with mean = meanE and
         sigma = spread_percent * meanE or sigma = spread_number depending on the user's input. The beam
@@ -25,6 +26,11 @@ def generate_beam_env(filename, meanE, dist, spread_percent=None, spread_number=
     if spread_number == 'stepwise':
 
         energy_spread = 0.1
+
+    if dist == 'lopsided':
+
+        energy_spread = spread_percent
+        spread_low = spread_low
 
     elif spread_percent is None and spread_number is not None:
 
@@ -45,7 +51,8 @@ def generate_beam_env(filename, meanE, dist, spread_percent=None, spread_number=
         print "WARNING: Energy spread over-defined. Defaulting to using given percentage spread."
         energy_spread = spread_percent
 
-    particle_number = produce_beam.produce_beam(open_file, meanE, energy_spread, dist)
+    particle_number = produce_beam.produce_beam(open_file, meanE,
+                                                energy_spread, spread_low, dist)
 
     return particle_number
 
@@ -68,11 +75,13 @@ def make_gmad_gaussian(meanE, spread, resultsdir, particle_number):
 
 def make_gmad_stepwise(meanE, spread, resultsdir, particle_number):
 
-    file_name = 'e_beam_max_' + str(meanE) + '_stepwise' + '.gmad'
+    file_name = 'e_beam_mean_' + str(meanE) + \
+                '_upperspread_' + str(spread) + \
+                '_lowerspread' + str(spread_low) + '.gmad'
     sg = os.path.join(resultsdir, file_name)
     fh = open(sg, "wb")
 
-    distfile_string = 'distrFile="../e_beam_max_' + str(meanE) + '_stepwise' +\
+    distfile_string = 'distrFile="../e_beam_mean_' + str(meanE) + '_stepwise' +\
                       '/e_beam_max_' + str(meanE) + '_stepwise' + '.txt'
     e_beamgmad1 = string.replace(e_beamgmad, 'distrFile_edit', distfile_string)
     ngenerate_string = 'option,ngenerate=' + str(particle_number) + ';'
@@ -81,6 +90,26 @@ def make_gmad_stepwise(meanE, spread, resultsdir, particle_number):
     e_beamgmad3 = string.replace(e_beamgmad2, 'option_nperfile_edit', nperfile_string)
     fh.write(e_beamgmad3)
     fh.close()
+
+def make_gmad_lopsided(meanE, spread, spread_low, resultsdir,
+                           particle_number):
+    file_name = 'e_beam_max_' + str(meanE) + '_stepwise' + '.gmad'
+    sg = os.path.join(resultsdir, file_name)
+    fh = open(sg, "wb")
+
+    distfile_string = 'distrFile="../e_beam_max_' + str(meanE) + '_lopsided' + \
+                      '/e_beam_max_' + str(meanE) + '_stepwise_lower_' + \
+                      str(spread_low) + '_upper_' + str(spread) + '.txt'
+    e_beamgmad1 = string.replace(e_beamgmad, 'distrFile_edit', distfile_string)
+    ngenerate_string = 'option,ngenerate=' + str(particle_number) + ';'
+    e_beamgmad2 = string.replace(e_beamgmad1, 'option_ngenerate_edit',
+                                 ngenerate_string)
+    nperfile_string = '!option,nperfile=' + str(particle_number) + ';'
+    e_beamgmad3 = string.replace(e_beamgmad2, 'option_nperfile_edit',
+                                 nperfile_string)
+    fh.write(e_beamgmad3)
+    fh.close()
+
 
 
 if __name__ == '__main__':
@@ -115,7 +144,7 @@ if __name__ == '__main__':
     E.g. --energy 5.0''')
 
     parser.add_argument('--spread_type', dest = 'type', default='percentage',
-                        choices=['percentage', 'value', 'stepwise'],
+                        choices=['percentage', 'value', 'stepwise', 'lopsided'],
                         help = '''
     This defines the type of energy spread that you are defining. The options
     are percentage, value or stepwise. 
@@ -139,6 +168,11 @@ if __name__ == '__main__':
     the mean energy, whereas value corresponds to a particular energy spread
     value measured in GeV.''')
 
+    parser.add_argument('--spread_low', dest='spread_low', default=None,
+                        help='''
+        This defines the lower spread of the gaussian beam for a lopsided 
+        beam. Measured in GeV.''')
+
     arguments = parser.parse_args()
 
     filename = arguments.file
@@ -147,19 +181,30 @@ if __name__ == '__main__':
 
     spread = float(arguments.spread)
 
+    spread_low = float(arguments.spread_low)
+
     if arguments.type == 'stepwise':
 
         particle_number = generate_beam_env(filename, meanE, dist='stepwise',
-                                            spread_percent=spread)
+                                            spread_percent=spread,
+                                            spread_low=None)
         spread = 'stepwise'
+
+    elif arguments.type == 'lopsided':
+
+        particle_number = generate_beam_env(filename, meanE, dist='lopsided',
+                                            spread_percent=spread,
+                                            spread_low=spread_low)
 
     elif arguments.type == 'percentage':
 
-        particle_number = generate_beam_env(filename, meanE, dist='gaussian', spread_percent=spread)
+        particle_number = generate_beam_env(filename, meanE, dist='gaussian',
+                                            spread_percent=spread, spread_low=None)
 
     elif arguments.type == 'value':
 
-        particle_number = generate_beam_env(filename, meanE, dist='gaussian', spread_number=spread)
+        particle_number = generate_beam_env(filename, meanE, dist='gaussian',
+                                            spread_number=spread, spread_low=None)
 
     cwd = os.getcwd()
 
@@ -168,6 +213,10 @@ if __name__ == '__main__':
     if arguments.type == 'stepwise':
 
         res_dir = 'e_beam_max_' + str(meanE) + '_stepwise'
+
+    elif arguments.type == 'lopsided':
+
+        res_dir = 'e_beam_max_' + str(meanE) + '_lopsided'
 
     else:
 
@@ -185,6 +234,10 @@ if __name__ == '__main__':
     if arguments.type == 'stepwise':
 
         make_gmad_stepwise(meanE, spread, res_dir, particle_number)
+
+    elif arguments.type == 'lopsided':
+
+        make_gmad_lopsided(meanE, spread, spread_low, res_dir, particle_number)
 
     else:
 
