@@ -97,7 +97,8 @@ def make_gmad_lopsided(meanE, spread, spread_low, resultsdir,
     sg = os.path.join(resultsdir, file_name)
     fh = open(sg, "wb")
 
-    distfile_string = 'distrFile="../e_beam_max_' + str(meanE) + '_lopsided' + \
+    distfile_string = 'distrFile="../e_beam_max_' + str(meanE) + '_lowerspread_' + \
+                      str(spread_low) + '_upperspread_' + str(spread) + \
                       '/e_beam_max_' + str(meanE) + '_lowerspread_' + \
                       str(spread_low) + '_upperspread_' + str(spread) + '.txt'
     e_beamgmad1 = string.replace(e_beamgmad, 'distrFile_edit', distfile_string)
@@ -216,7 +217,8 @@ if __name__ == '__main__':
 
     elif arguments.type == 'lopsided':
 
-        res_dir = 'e_beam_max_' + str(meanE) + '_lopsided'
+        res_dir = 'e_beam_max_' + str(meanE) + '_lowerspread_' + \
+                      str(spread_low) + '_upperspread_' + str(spread)
 
     else:
 

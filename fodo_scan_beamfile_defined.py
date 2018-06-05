@@ -643,7 +643,8 @@ if __name__ == "__main__":
 
     elif arguments.type == 'lopsided':
 
-        beam_dir = 'e_beam_max_' + str(meanE) + '_lopsided'
+        beam_dir = 'e_beam_max_' + str(meanE) + '_lowerspread_' + \
+                      str(spread_low) + '_upperspread_' + str(spread)
 
     else:
 
