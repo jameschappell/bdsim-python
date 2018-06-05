@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 def read_file(filename):
@@ -31,7 +32,7 @@ def produce_strange_beam(peak, gauss_wid_low, gauss_wid_high, n):
     # frac = gauss_wid_high/gauss_wid_low
     frac = 0.5
 
-    num_part_low = int((1 - frac) * n)
+    num_part_low = int(math.ceil((1 - frac) * n))
     lower_part = abs(np.random.normal(0, gauss_wid_low*peak, num_part_low))
 
     for i in range(0, len(lower_part)):
