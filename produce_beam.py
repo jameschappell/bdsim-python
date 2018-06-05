@@ -120,9 +120,9 @@ def produce_beam(filename, meanE, energy_spread, energy_spread_low, dist):
 
     elif dist == "lopsided":
 
-        output_file_name = 'e_beam_mean_' + str(meanE) + \
-                           '_upperspread_' + str(energy_spread) + \
-                           '_lowerspread' + str(energy_spread_low) + '.txt'
+        output_file_name = 'e_beam_max_' + str(meanE) + '_lowerspread_' + \
+                            str(energy_spread_low) + '_upperspread_' + \
+                            str(energy_spread) + '.txt'
 
     else:
 

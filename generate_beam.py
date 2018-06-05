@@ -98,8 +98,8 @@ def make_gmad_lopsided(meanE, spread, spread_low, resultsdir,
     fh = open(sg, "wb")
 
     distfile_string = 'distrFile="../e_beam_max_' + str(meanE) + '_lopsided' + \
-                      '/e_beam_max_' + str(meanE) + '_stepwise_lower_' + \
-                      str(spread_low) + '_upper_' + str(spread) + '.txt'
+                      '/e_beam_max_' + str(meanE) + '_lowerspread_' + \
+                      str(spread_low) + '_upperspread_' + str(spread) + '.txt'
     e_beamgmad1 = string.replace(e_beamgmad, 'distrFile_edit', distfile_string)
     ngenerate_string = 'option,ngenerate=' + str(particle_number) + ';'
     e_beamgmad2 = string.replace(e_beamgmad1, 'option_ngenerate_edit',
