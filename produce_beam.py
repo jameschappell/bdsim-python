@@ -32,13 +32,13 @@ def produce_strange_beam(peak, gauss_wid_low, gauss_wid_high, n):
     frac = 0.5
 
     num_part_low = int((1 - frac) * n)
-    lower_part = abs(np.random.normal(0, gauss_wid_low, num_part_low))
+    lower_part = abs(np.random.normal(0, gauss_wid_low*peak, num_part_low))
 
     for i in range(0, len(lower_part)):
         beam.append(abs(peak - lower_part[i]))
 
     num_part_high = int(frac * n)
-    upper_part = abs(np.random.normal(0, gauss_wid_high, num_part_high))
+    upper_part = abs(np.random.normal(0, gauss_wid_high*peak, num_part_high))
 
     for j in range(0, len(upper_part)):
         beam.append(peak + upper_part[j])
