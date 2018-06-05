@@ -93,7 +93,8 @@ def make_gmad_stepwise(meanE, spread, resultsdir, particle_number):
 
 def make_gmad_lopsided(meanE, spread, spread_low, resultsdir,
                            particle_number):
-    file_name = 'e_beam_max_' + str(meanE) + '_stepwise' + '.gmad'
+    file_name = 'e_beam_max_' + str(meanE) + '_lowerspread_' + \
+                      str(spread_low) + '_upperspread_' + str(spread) + '.gmad'
     sg = os.path.join(resultsdir, file_name)
     fh = open(sg, "wb")
 
