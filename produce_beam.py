@@ -107,7 +107,8 @@ def produce_beam(filename, meanE, energy_spread, energy_spread_low, dist):
 
     energy_GeV_to_MeV = meanE*1000
 
-    energy_values = generate_beam_energies(energy_GeV_to_MeV, energy_spread, array, dist)
+    energy_values = generate_beam_energies(energy_GeV_to_MeV, energy_spread,
+                                           energy_spread_low, array, dist)
 
     output = replace_energies(array, energy_values)
 
