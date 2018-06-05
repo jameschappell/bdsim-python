@@ -596,7 +596,7 @@ if __name__ == "__main__":
     gen_beam_command = "python ${PYTHON_GIT_DIR}/generate_beam.py --file " + str(filename) + \
                        " --energy " + str(meanE) + \
                        " --spread_type " + str(arguments.type) + \
-                       " --spread " + str(spread) + " --spread_low" + \
+                       " --spread " + str(spread) + " --spread_low " + \
                        str(spread_low)
 
     print gen_beam_command
