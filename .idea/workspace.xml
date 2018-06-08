@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e2fc6db-c012-4dfb-a2fb-a1f41943ef26" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/fodo_scan_bdsim_beam.py" beforeDir="false" afterPath="$PROJECT_DIR$/fodo_scan_bdsim_beam.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fodo_scan_beamfile_defined.py" beforeDir="false" afterPath="$PROJECT_DIR$/fodo_scan_beamfile_defined.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_beam.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_beam.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,7 +29,7 @@
       <file leaf-file-name="fodo_scan_beamfile_defined.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fodo_scan_beamfile_defined.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
+            <state relative-caret-position="-5209">
               <caret line="294" column="65" lean-forward="true" selection-start-line="294" selection-end-line="294" selection-end-column="65" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -38,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fodo_scan_bdsim_beam.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fodo_scan_bdsim_beam.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fodo_scan_bdsim_beam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="294" column="65" selection-start-line="294" selection-start-column="65" selection-end-line="294" selection-end-column="65" />
+            <state relative-caret-position="190">
+              <caret line="271" column="32" lean-forward="true" selection-start-line="271" selection-start-column="32" selection-end-line="271" selection-end-column="32" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="generate_beam.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="generate_beam.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generate_beam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1950">
-              <caret line="134" column="66" selection-start-line="134" selection-start-column="66" selection-end-line="134" selection-end-column="66" />
+            <state relative-caret-position="124">
+              <caret line="81" column="47" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -84,10 +84,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/generate_beam.py" />
         <option value="$PROJECT_DIR$/produce_beam.py" />
         <option value="$PROJECT_DIR$/fodo_scan_beamfile_defined.py" />
         <option value="$PROJECT_DIR$/fodo_scan_bdsim_beam.py" />
+        <option value="$PROJECT_DIR$/generate_beam.py" />
       </list>
     </option>
   </component>
@@ -151,6 +151,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="824" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20694445" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -416,16 +417,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generate_beam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1950">
-          <caret line="134" column="66" selection-start-line="134" selection-start-column="66" selection-end-line="134" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/produce_beam.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1185">
@@ -435,7 +426,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fodo_scan_beamfile_defined.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
+        <state relative-caret-position="-5209">
           <caret line="294" column="65" lean-forward="true" selection-start-line="294" selection-end-line="294" selection-end-column="65" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -445,10 +436,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fodo_scan_bdsim_beam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="294" column="65" selection-start-line="294" selection-start-column="65" selection-end-line="294" selection-end-column="65" />
+        <state relative-caret-position="190">
+          <caret line="271" column="32" lean-forward="true" selection-start-line="271" selection-start-column="32" selection-end-line="271" selection-end-column="32" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generate_beam.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="81" column="47" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>

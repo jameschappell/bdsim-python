@@ -75,13 +75,11 @@ def make_gmad_gaussian(meanE, spread, resultsdir, particle_number):
 
 def make_gmad_stepwise(meanE, spread, resultsdir, particle_number):
 
-    file_name = 'e_beam_mean_' + str(meanE) + \
-                '_upperspread_' + str(spread) + \
-                '_lowerspread' + str(spread_low) + '.gmad'
+    file_name = 'e_beam_max_' + str(meanE) + '_stepwise.gmad'
     sg = os.path.join(resultsdir, file_name)
     fh = open(sg, "wb")
 
-    distfile_string = 'distrFile="../e_beam_mean_' + str(meanE) + '_stepwise' +\
+    distfile_string = 'distrFile="../e_beam_max_' + str(meanE) + '_stepwise' +\
                       '/e_beam_max_' + str(meanE) + '_stepwise' + '.txt'
     e_beamgmad1 = string.replace(e_beamgmad, 'distrFile_edit', distfile_string)
     ngenerate_string = 'option,ngenerate=' + str(particle_number) + ';'
