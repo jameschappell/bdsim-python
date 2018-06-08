@@ -292,7 +292,7 @@ mqf0: marker;
 !           bpm1, d3, mbtv1_in, btv1_d, mbtv1_out, d4, 
 !           diagnosticTable, d5, mqf0, qf0, d6, qd0,d7,lSpectrometer);
 
-upstream : line=(d_quad_true, mqf0, qf0, d6, qd0, lSpectrometer);
+upstream : line=(lineIris2, d_quad_true, mqf0, qf0, d6, qd0, lSpectrometer);
 
 downstream : line=(d8, mbtv2_in, btv2_d, mbtv2_out, d9, mldump2_in,mldump2_out);
              !ldump2_d, mldump2_out);
