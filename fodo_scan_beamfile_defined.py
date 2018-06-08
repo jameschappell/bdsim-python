@@ -307,29 +307,29 @@ use, period=awakesbl;
 sample, range=mIris2In;
 sample, range=mIris2Out;
 
-sample, range = min;
-sample, range = mout;
-sample, range = motr_in;
-sample, range = motr_out;
-sample, range = mctr_in;
-sample, range = mctr_out;
-sample, range = mctab3_in;
-sample, range = mctab3_out;
+!sample, range = min;
+!sample, range = mout;
+!sample, range = motr_in;
+!sample, range = motr_out;
+!sample, range = mctr_in;
+!sample, range = mctr_out;
+!sample, range = mctab3_in;
+!sample, range = mctab3_out;
 
 sample, range = mqf0;
 
 sample, range = mSpectrIn ;
 sample, range = mSpectrOut;
 
-sample, range = mbtv1_in;
-sample, range = mbtv1_out;
-sample, range = mldump_in;
-sample, range = mldump_out;
+!sample, range = mbtv1_in;
+!sample, range = mbtv1_out;
+!sample, range = mldump_in;
+!sample, range = mldump_out;
 
-sample, range = mbtv2_in;
-sample, range = mbtv2_out;
-sample, range = mldump2_in;
-sample, range = mldump2_out;
+!sample, range = mbtv2_in;
+!sample, range = mbtv2_out;
+!sample, range = mldump2_in;
+!sample, range = mldump2_out;
 !sample, range = mendwall;
 '''
 
