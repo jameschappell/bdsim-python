@@ -71,6 +71,8 @@ lineIris2_l=liris;
 
 d1: drift, l=850*mm, aper=def_aper;
 
+d_quad_true: drift, l=4484*mm, aper=def_aper;
+
 !Laser dump
 l_ldump1        = 246*mm;
 w_ldump1        = 1*cm;
@@ -186,7 +188,7 @@ dipolefield: field, type="bmap3d",
 
 psz=1005*mm;
 sez=1.676;
-screenAngle=-45*pi/180;
+screenAngle=-44.8*pi/180;
 
 mySpectrometer: awakespectrometer, l=4*m,
 			                       region="precReg",
@@ -285,9 +287,12 @@ mendwall    : marker;
 
 mqf0: marker;
 
-upstream : line=(lineIris2, d1, mldump_in, mldump_out,d2, 
-           bpm1, d3, mbtv1_in, btv1_d, mbtv1_out, d4, 
-           diagnosticTable, d5, mqf0, qf0, d6, qd0,d7,lSpectrometer);
+
+!upstream : line=(lineIris2, d1, mldump_in, mldump_out,d2, 
+!           bpm1, d3, mbtv1_in, btv1_d, mbtv1_out, d4, 
+!           diagnosticTable, d5, mqf0, qf0, d6, qd0,d7,lSpectrometer);
+
+upstream : line=(d_quad_true, mqf0, qf0, d6, qd0, lSpectrometer);
 
 downstream : line=(d8, mbtv2_in, btv2_d, mbtv2_out, d9, mldump2_in,mldump2_out);
              !ldump2_d, mldump2_out);
